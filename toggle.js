@@ -33,44 +33,79 @@ const createLabels = (labels) => {
     }).join("");
 }
     
+// const removeBtn=()=>{
+//     const statusBtn=document.querySelectorAll(".status-btn")
+//     statusBtn.forEach((btn)=>btn.classList.remove("active"))
+// }
 
-
-const openBtn=document.getElementById('open-btn')
-const closedBtn=document.getElementById('closed-btn')
+// const openBtn=document.getElementById('open-btn')
+// const closedBtn=document.getElementById('closed-btn')
 let issuesCount=document.getElementById('issues-count')
 
-
+let allIssues=[]
 const loadAll=()=>{
     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then(res=>res.json())
     .then(json => {
+        
     console.log(json)
+    allIssues=json.data
+    displayIssues(allIssues)
     displayBtn(json.data)
-    displayIssues(json.data)
+
+    const allBtn=document.getElementById("all-btn")
+    allBtn.classList.add('active')
+    allBtn.classList.remove('bg-neutral-400')
 })
 }
 
 const displayBtn=()=>{
+    
 const btnContainer=document.getElementById('btn-container')
 btnContainer.innerHTML=""
 const btn=document.createElement("div")
 
 btn.innerHTML=`
-<button onclick="toggle('all-btn')" id="all-btn" class="btn active ">All</button>`
+<button onclick="filterIssues('all',event)" id="all-btn" class="btn btn-active btn-info ">All</button>
+ <button onclick="filterIssues('open',event)" id="open-btn" class="btn bg-neutral-400 ">Open</button>
+<button onclick="filterIssues('closed',event)" id="closed-btn" class="btn bg-neutral-400">Closed</button>`
 btnContainer.appendChild(btn)
     
 }
 
+const filterIssues=(status,event)=>{
+    const allBtn=document.querySelectorAll(".btn")
+    allBtn.forEach(btn=>{
+        btn.classList.remove('active')
+        btn.classList.add('bg-neutral-400')
+    })
+    event.target.classList.add("active")
+    event.target.classList.remove("bg-neutral-400")
+    if(status==="all"){
+        displayIssues(allIssues)
+    //    status.classlist.remove("bg-neutral-400")
+        // openBtn.classList.remove("bg-neutral-400")
+        // closedBtn.classList.remove("bg-neutral-400")
+        // allBtn.classList.add('active')
+    //  openBtn.classList.add('active')
+    // status.classList.add('active')
+    }
+    else{
+        const filteredIssue=allIssues.filter(issue=>issue.status.toLowerCase()===status.toLowerCase())
+        displayIssues(filteredIssue)
+    }
+}
+
 const displayIssues=(issues)=>{
     const issueContainer=document.getElementById("issue-container")
-    issueContainer.html=""
+    issueContainer.innerHTML=""
     issuesCount.innerText=issues.length
     for(let issue of issues){
         let borderColor="border-t-[#00A96E]"
         let backGround="bg-[#FEECEC] border-[#FEECEC]";
         let textColor="text-[#EF4444]"
         let status="./assets/Open-Status.png" 
-        if(issue.priority.toLowerCase()==="HIGH"){
+        if(issue.priority.toLowerCase()==="high"){
             borderColor="border-t-4 border-t-[#00A96E]"
             backGround="bg-[#FEECEC] border-[#FEECEC]"
             textColor="text-[#EF4444]"
@@ -120,4 +155,6 @@ const displayIssues=(issues)=>{
         issueContainer.appendChild(cardDiv)
     }
 }
+
+
 loadAll()
