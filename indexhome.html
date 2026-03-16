@@ -21,6 +21,10 @@
         *{
             font-family: "Geist", sans-serif;
         }
+        .active{
+        background-color: #422AD5;
+        color: #FFFFFF;
+    }
     </style>
 </head>
 <body>
@@ -47,15 +51,90 @@
     </header>
 
     <section class="w-10/12 mx-auto shadow-sm mt-[60px]">
-        <div class="pl-6 py-6">
-        <button class="btn">All</button>
-        <button class="btn">Open</button>
-        <button class="btn">Closed</button>
+        <div id="btn-container" class="pl-6 py-6">
+        <button onclick="toggle('open-btn')" id="open-btn" class="btn active ">Open</button>
+        <button onclick="toggle('closed-btn')" id="closed-btn" class="btn active">Closed</button>
         </div>
         
 
     </section>
 
-    <script src="login.js"></script>
+    <section class="w-10/12 mx-auto shadow-sm mt-[16px]"> 
+     <div class="flex justify-between items-center gap-10 m-6 py-6">
+        <div class="flex gap-2 items-center ">
+            <div>
+            <img src="./assets/Aperture.png" alt="">
+
+            </div>
+            <div>
+            <h2 class="font-semibold text-[24px] text-[#1F2937]"><span id="issues-count">0</span> Issues</h2>
+            <p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                <p class="w-4 h-4 bg-[#00A96E] rounded-full"></p>
+                <h3>Open</h3>
+            </div>
+            <div class="flex items-center gap-2">
+                <p class="w-4 h-4 bg-[#A855F7] rounded-full"></p>
+                <h3>Closed</h3>
+            </div>
+        </div>
+            
+        </div>
+       
+    </section>
+
+    <section id="issue-container" class="w-10/12 mx-auto shadow-sm mt-[14px] bg-gray-200 grid grid-cols-4">
+        <!-- <div class="bg-white rounded-xl shadow-sm p-4 m-[24px] border-t-5 border-t-[#00A96E]">
+            <div class="flex justify-between items-center">
+                <div>
+                <img src="./assets/Open-Status.png" alt="">
+            </div>
+            <div class="bg-[#FEECEC] border-[#FEECEC] rounded-full w-[80px] p-2 text-center">
+                <p class="text-[#EF4444] text-[12px]">HIGH</p>
+            </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-[14px] text-[#1F2937]">Fix navigation menu on mobile devices</h3>
+                <p class="text-[12px] text-[#64748B]">The navigation menu doesn't collapse properly on mobile devices...</p>
+            </div>
+
+            <div class="flex gap-2 mt-3">
+                <div class="bg-[#FEECEC] border-[#FECACA] rounded-full w-[56px] flex justify-between items-center p-2">
+                    <div class="w-[12px]">
+                    <img src="./assets/BugDroid.png" alt="">
+                    </div>
+                <p class="text-[#EF4444] text-[12px]"></p>
+                </div>
+                <div class="bg-[#FFF8DB] border-[#FDE68A]  w-[112px] rounded-full flex justify-between items-center p-2">
+                    <div class="w-[12px]">
+                    <img src="./assets/Lifebuoy.png" alt="">
+                    </div>
+                <p class="text-[#D97706] text-[12px]"></p>
+                </div>
+                <div class="bg-[#DEFCE8] border-[#BBF7D0]  w-[120px] rounded-full flex justify-between items-center p-2">
+                    <div class="w-[12px]">
+                    <img src="./assets/Sparkle.png" alt="">
+                    </div>
+                <p class="text-[#00A96E] text-[12px]"></p>
+                </div>
+            </div>
+            <div class="border border-gray-300 mt-4"></div>
+
+            <div class="mt-4">
+                <h3 class="text-[#64748B] text-[12px]">#1 by john_doe</h3>
+                <p class="text-[#64748B] text-[12px]">1/15/2024</p>
+            </div>
+            
+
+        </div> -->
+
+    </section>
+
+    <script src="toggle.js"></script>
 </body>
 </html>

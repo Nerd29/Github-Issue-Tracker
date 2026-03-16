@@ -1,0 +1,123 @@
+// const createLabels=(arr)=>{
+//    const grpLabels=arr.map(el => `<span class="">${el}</span>`)
+//    return(grpLabels.join(" "))
+
+const createLabels = (labels) => {
+    return labels.map(label => {
+        let colorClass = "bg-gray-100 text-[#64748B]";
+        // let widthClass="w-[100px]"
+        let iconPath = "";
+
+        // Logic for Colors and Icons
+        if (label.toLowerCase().includes('bug')) {
+            colorClass = "bg-[#FEECEC] border-1 border-[#EF4444]  text-[#EF4444]";
+            iconPath = "./assets/BugDroid.png";
+        } else if (label.toLowerCase().includes('help wanted')) {
+            colorClass = "bg-[#FFF8DB] border-1 border-[#D97706] text-[#D97706]";
+
+            iconPath = "./assets/Lifebuoy.png";
+        } else if (label.toLowerCase().includes('enhancement')) {
+            colorClass = "bg-[#DEFCE8] border-1 border-[#00A96E] text-[#00A96E]";
+            iconPath = "./assets/Sparkle.png";
+        } else if (label.toLowerCase().includes('documentation')) {
+            colorClass = "bg-blue-100 text-blue-600 border-1 border-blue-600";
+            iconPath = "./assets/Aperture.png"; // Or whichever icon you prefer for docs
+        }
+
+        // Return the HTML with the image included
+        return `
+            <span class="${colorClass} p-2 rounded-full text-[9px] font-bold uppercase flex items-center text-center gap-1">
+                ${iconPath ? `<img src="${iconPath}" class="w-3 h-3" alt="">` : ""}
+                ${label}
+            </span>`;
+    }).join("");
+}
+    
+
+
+const openBtn=document.getElementById('open-btn')
+const closedBtn=document.getElementById('closed-btn')
+let issuesCount=document.getElementById('issues-count')
+
+
+const loadAll=()=>{
+    fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then(res=>res.json())
+    .then(json => {
+    console.log(json)
+    displayBtn(json.data)
+    displayIssues(json.data)
+})
+}
+
+const displayBtn=()=>{
+const btnContainer=document.getElementById('btn-container')
+btnContainer.innerHTML=""
+const btn=document.createElement("div")
+
+btn.innerHTML=`
+<button onclick="toggle('all-btn')" id="all-btn" class="btn active ">All</button>`
+btnContainer.appendChild(btn)
+    
+}
+
+const displayIssues=(issues)=>{
+    const issueContainer=document.getElementById("issue-container")
+    issueContainer.html=""
+    issuesCount.innerText=issues.length
+    for(let issue of issues){
+        let borderColor="border-t-[#00A96E]"
+        let backGround="bg-[#FEECEC] border-[#FEECEC]";
+        let textColor="text-[#EF4444]"
+        let status="./assets/Open-Status.png" 
+        if(issue.priority.toLowerCase()==="HIGH"){
+            borderColor="border-t-4 border-t-[#00A96E]"
+            backGround="bg-[#FEECEC] border-[#FEECEC]"
+            textColor="text-[#EF4444]"
+        }
+        else if(issue.priority.toLowerCase()==="medium"){
+            borderColor="border-t-4 border-t-[#00A96E]"
+            backGround="bg-[#FFF8DB]  border-[#FDE68A]"
+            textColor="text-[#F59E0B]"
+
+        }
+        else if(issue.priority.toLowerCase()==="low"){
+            status="./assets/Closed-Status.png" 
+            borderColor="border-t-4 border-t-[#A855F7]"
+            backGround="bg-[#EEEFF2] border-[#BBF7D0]"
+            textColor="text-[#9CA3AF]"
+        }
+
+        const cardDiv=document.createElement("div")
+        cardDiv.innerHTML=`
+        <div class="bg-white rounded-xl shadow-sm p-4 m-4 ${borderColor} space-y-3 w-[257px]">
+            <div class="flex justify-between items-center">
+                <div> <img src="${status}" alt=""></div>
+            <div class="${backGround} rounded-full w-[70px] px-2 text-center">
+                <p class="${textColor} text-[16px]">${issue.priority}</p>
+            </div>
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-[14px] text-[#1F2937]">${issue.title}</h3>
+                <p class="text-[12px] text-[#64748B]">${issue.description}</p>
+            </div>
+
+            <div class="flex gap-2 mt-3">
+           ${createLabels(issue.labels)}
+                
+            </div>
+            <div class="border border-gray-300 mt-4"></div>
+
+            <div class="mt-4">
+                <h3 class="text-[#64748B] text-[12px]">#1 by ${issue.author}</h3>
+                <p class="text-[#64748B] text-[12px]">Created At:${issue.createdAt}</p>
+                <p class="text-[#64748B] text-[12px]">Updated At:${issue.updatedAt}</p>
+            </div>
+            
+
+        </div>`
+        issueContainer.appendChild(cardDiv)
+    }
+}
+loadAll()

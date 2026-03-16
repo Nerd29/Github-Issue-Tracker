@@ -12,7 +12,7 @@ const password=passwordBtn.value ;
 if(input=="admin" && password=='admin123'){
     alert('Login Successful!!!!')
 
-    window.location.assign("/indexhome.html")
+    window.location.assign("indexhome.html")
 }
 else{
     alert('Login Failed!!!')
