@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github-Issue-Tracker</title>
+
+    <!-- DaisyUI+Tailwind added -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- font awesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
+
+    <style>
+        *{
+            font-family: "Geist", sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="">
+        <div class="navbar bg-base-100 shadow-sm flex justify-between">
+  <div class="flex gap-2 items-center ml-[70px]">
+    <div class="w-[36px]">
+            <img src="./assets/github-logo.png" alt="">
+
+    </div>
+    <h2 class="font-semibold text-[24px] text-[#1F2937]">Github Issues Tracker</h2>
+    <!-- <a class="btn btn-ghost text-xl">daisyUI</a> -->
+  </div>
+  <div class="flex gap-2 items-center mr-[70px]">
+    <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+    <!-- <div class="dropdown dropdown-end"> -->
+      <!-- <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar"> -->
+        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i>New Issues</button>
+        
+    <!-- </div> -->
+  </div>
+</div>
+    </header>
+
+    <section class="w-10/12 mx-auto shadow-sm mt-[60px]">
+        <div class="pl-6 py-6">
+        <button class="btn">All</button>
+        <button class="btn">Open</button>
+        <button class="btn">Closed</button>
+        </div>
+        
+
+    </section>
+
+    <script src="login.js"></script>
+</body>
+</html>
