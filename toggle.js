@@ -75,6 +75,63 @@ const loadAll=()=>{
 })
 }
 
+const loadModal=(id)=>{
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
+    .then(res=>res.json())
+    .then(json => {
+    console.log(json)
+    displayModal(json.data)
+})
+}
+const displayModal=(issue)=>{
+    const modalContainer=document.getElementById('modal-container')
+    let priorityColor = issue.priority.toLowerCase() === 'high' ? 'bg-[#EF4444]' : 'bg-[#F59E0B]';
+    let btnColor = issue.status.toLowerCase() === 'open' ? 'bg-[#00A96E]' : 'bg-[#8f03bd]';
+    const displayStatus = issue.status.toLowerCase() === 'open' ? 'Opened' : 'Closed';
+    modalContainer.innerHTML=`
+       <h3 class="text-[24px] font-bold mb-[32px] text-[#1F2937]">${issue.title}</h3>
+    <div class="space-y-[10px] mb-[32px] flex gap-3 items-center text-center">
+       <button class="btn ${btnColor} w-[80px] text-white rounded-full">${displayStatus}</button>
+        <p class="text-[15px] text-[#64748B]"> • opened by<span > ${issue.author} • <span>${issue.updatedAt}</span>
+        </p>
+    </div>
+    <div class="space-y-[10px] mb-[32px]">
+        <p class="text-[12px] text-[#64748B]">${issue.description}</p>
+        </div>
+    <div class="flex gap-2 mt-3 mb-6">
+                ${createLabels(issue.labels)}
+        </div>
+
+
+        <!-- <div class="space-y-[10px] mb-[32px]">
+            <h3 class="font-semibold text-[24px] font-bangla">সমার্থক শব্দ গুলো</h3>
+
+        </div> -->
+        <div class="flex flex-row gap-2">
+        <div class="flex items-center gap-2 bg-base-200 p-3">
+        <h3>Assign:</h3>
+        <p class="text-[16px] font-bold text-[#1F2937] text-center">${issue.author}</p>
+        </div>
+        <div class="flex items-center gap-2 bg-base-200 p-3">Priority:
+             
+                <p class="text-[#FFFFFF] text-[12px] ${priorityColor}  rounded-full w-[80px] p-2 text-center">${issue.priority.toUpperCase()}</p>
+        </div>
+        </div>
+        <!-- <button class="btn"></button> -->
+    </div>
+   
+    
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn btn-primary">Close</button>
+      </form>
+    </div>`
+
+    document.getElementById('show_modal').showModal()
+    
+}
+
 const displayBtn=()=>{
     
 const btnContainer=document.getElementById('btn-container')
@@ -118,6 +175,7 @@ setTimeout(()=>{
 }
 
 
+
 const displayIssues=(issues)=>{
     // manageSpinner(true)
     const issueContainer=document.getElementById("issue-container")
@@ -148,7 +206,7 @@ const displayIssues=(issues)=>{
 
         const cardDiv=document.createElement("div")
         cardDiv.innerHTML=`
-        <div class="bg-white rounded-xl shadow-sm p-4 m-4 ${borderColor} space-y-3 w-[257px]">
+        <div onclick="loadModal('${issue.id}')" class="bg-white rounded-xl shadow-sm p-4 m-4 ${borderColor} space-y-3 w-[257px]">
             <div class="flex justify-between items-center">
                 <div> <img src="${status}" alt=""></div>
             <div class="${backGround} rounded-full w-[70px] px-2 text-center">
@@ -181,4 +239,28 @@ const displayIssues=(issues)=>{
 }
 
 
+
+
 loadAll()
+
+
+    const searchBtn=document.getElementById('search-btn')
+    searchBtn.addEventListener('click',()=>{
+    searchBtn.classList.add('bg-neutral')
+    searchBtn.classList.remove('active')
+    const inputSearch=document.getElementById("input")
+    const output=inputSearch.value.trim().toLowerCase() //user ja type korbe oita pabo and xtra space trim kore bad dibo
+
+    fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${output}`)
+    .then(res=>res.json())
+    .then(json => {
+    console.log(json)
+    const displaySearch=(json.data)
+    const filterWords=displaySearch.filter((issue)=>issue.title.toLowerCase().includes(output)) //search input a ja likhbo oita jodi word object er word propertyr sathe mile jay taile and oita lowercase hoite hobe then oi specific word gula k filter kore dekhabo
+
+    displayIssues(filterWords)
+})
+
+
+
+})
