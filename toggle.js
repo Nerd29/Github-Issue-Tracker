@@ -32,6 +32,17 @@ const createLabels = (labels) => {
             </span>`;
     }).join("");
 }
+
+const manageSpinner=(status)=>{
+    if(status===true){
+        document.getElementById('spinner').classList.remove("hidden")
+        document.getElementById('issue-container').classList.add("hidden")
+    }
+    else{
+        document.getElementById('spinner').classList.add("hidden")
+        document.getElementById('issue-container').classList.remove("hidden")
+    }
+}
     
 // const removeBtn=()=>{
 //     const statusBtn=document.querySelectorAll(".status-btn")
@@ -44,6 +55,7 @@ let issuesCount=document.getElementById('issues-count')
 
 let allIssues=[]
 const loadAll=()=>{
+    manageSpinner(true)
     fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then(res=>res.json())
     .then(json => {
@@ -56,6 +68,10 @@ const loadAll=()=>{
     const allBtn=document.getElementById("all-btn")
     allBtn.classList.add('active')
     allBtn.classList.remove('bg-neutral-400')
+    const searchBtn=document.getElementById('search-btn')
+    searchBtn.classList.add('active')
+   searchBtn.classList.remove('bg-neutral-400')
+
 })
 }
 
@@ -66,21 +82,23 @@ btnContainer.innerHTML=""
 const btn=document.createElement("div")
 
 btn.innerHTML=`
-<button onclick="filterIssues('all',event)" id="all-btn" class="btn btn-active btn-info ">All</button>
- <button onclick="filterIssues('open',event)" id="open-btn" class="btn bg-neutral-400 ">Open</button>
-<button onclick="filterIssues('closed',event)" id="closed-btn" class="btn bg-neutral-400">Closed</button>`
+<button onclick="filterIssues('all',event)" id="all-btn" class="btn bg-blue-600 ">All</button>
+ <button onclick="filterIssues('open',event)" id="open-btn" class="btn bg-neutral-300 ">Open</button>
+<button onclick="filterIssues('closed',event)" id="closed-btn" class=" btn bg-neutral-300">Closed</button>`
 btnContainer.appendChild(btn)
-    
+//    manageSpinner(true) 
 }
-
 const filterIssues=(status,event)=>{
-    const allBtn=document.querySelectorAll(".btn")
+manageSpinner(true)
+
+setTimeout(()=>{
+    const allBtn=document.querySelectorAll("#btn-container .btn")
     allBtn.forEach(btn=>{
         btn.classList.remove('active')
-        btn.classList.add('bg-neutral-400')
+        btn.classList.add('bg-neutral-300')
     })
     event.target.classList.add("active")
-    event.target.classList.remove("bg-neutral-400")
+    event.target.classList.remove("bg-neutral-300")
     if(status==="all"){
         displayIssues(allIssues)
     //    status.classlist.remove("bg-neutral-400")
@@ -92,11 +110,16 @@ const filterIssues=(status,event)=>{
     }
     else{
         const filteredIssue=allIssues.filter(issue=>issue.status.toLowerCase()===status.toLowerCase())
+        // manageSpinner(true)
         displayIssues(filteredIssue)
+        manageSpinner(false)
     }
+},700)
 }
 
+
 const displayIssues=(issues)=>{
+    // manageSpinner(true)
     const issueContainer=document.getElementById("issue-container")
     issueContainer.innerHTML=""
     issuesCount.innerText=issues.length
@@ -154,6 +177,7 @@ const displayIssues=(issues)=>{
         </div>`
         issueContainer.appendChild(cardDiv)
     }
+    manageSpinner(false)
 }
 
 
