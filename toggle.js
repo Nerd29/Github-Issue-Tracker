@@ -206,7 +206,7 @@ const displayIssues=(issues)=>{
 
         const cardDiv=document.createElement("div")
         cardDiv.innerHTML=`
-        <div onclick="loadModal('${issue.id}')" class="bg-white rounded-xl shadow-sm p-4 m-4 ${borderColor} space-y-3 w-[257px]">
+        <div onclick="loadModal('${issue.id}')" class="bg-white rounded-xl shadow-sm p-4 m-4 ${borderColor} space-y-3 max-w-[340px]">
             <div class="flex justify-between items-center">
                 <div> <img src="${status}" alt=""></div>
             <div class="${backGround} rounded-full w-[70px] px-2 text-center">
