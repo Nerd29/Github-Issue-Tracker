@@ -30,13 +30,13 @@
 <body>
 
     <header class="">
-        <div class="navbar bg-base-100 shadow-sm flex justify-between">
-  <div class="flex gap-2 items-center ml-[70px]">
+        <div class="navbar bg-base-100 shadow-sm flex flex-col gap-3 md:flex-row justify-between">
+  <div class="flex gap-2 items-center flex-row justify-between">
     <div class="w-[36px]">
             <img src="./assets/github-logo.png" alt="">
 
     </div>
-    <h2 class="font-semibold text-[24px] text-[#1F2937]">Github Issues Tracker</h2>
+    <h2 class="font-semibold text-[18px] text-[#1F2937] whitespace-nowrap">Github Issues Tracker</h2>
     <!-- <a class="btn btn-ghost text-xl">daisyUI</a> -->
   </div>
   <div class="flex gap-2 items-center mr-[70px]">
@@ -59,7 +59,7 @@
     </section>
 
     <section class="w-10/12 mx-auto shadow-sm mt-[16px]"> 
-     <div class="flex justify-between items-center gap-10 m-6 py-6">
+     <div class="flex flex-col md:flex-row justify-between items-center gap-10 m-6 py-6">
         <div class="flex gap-2 items-center ">
             <div>
             <img src="./assets/Aperture.png" alt="">
@@ -92,7 +92,8 @@
 
     </section>
 
-    <section id="issue-container" class="w-10/12 mx-auto shadow-sm mt-[14px] bg-gray-200 grid grid-cols-4">
+    <section id="issue-container" class="w-11/12 md:w-10/12 mx-auto mt-[14px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-10">
+    
         <!-- <div class="bg-white rounded-xl shadow-sm p-4 m-[24px] border-t-5 border-t-[#00A96E]">
             <div class="flex justify-between items-center">
                 <div>
