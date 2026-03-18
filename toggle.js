@@ -183,23 +183,33 @@ const displayIssues=(issues)=>{
     issuesCount.innerText=issues.length
     for(let issue of issues){
         let borderColor="border-t-[#00A96E]"
+        let status="./assets/Open-Status.png" 
+         if(issue.status.toLowerCase()==="open"){
+         borderColor="border-t-4 border-t-[#00A96E]"
+        status="./assets/Open-Status.png" 
+        }
+       else if(issue.status.toLowerCase()==="closed"){
+         borderColor="border-t-4 border-t-[#A855F7]"
+          status="./assets/Closed-Status.png" 
+        }
         let backGround="bg-[#FEECEC] border-[#FEECEC]";
         let textColor="text-[#EF4444]"
-        let status="./assets/Open-Status.png" 
+
+       
         if(issue.priority.toLowerCase()==="high"){
-            borderColor="border-t-4 border-t-[#00A96E]"
+            // borderColor="border-t-4 border-t-[#00A96E]"
             backGround="bg-[#FEECEC] border-[#FEECEC]"
             textColor="text-[#EF4444]"
         }
         else if(issue.priority.toLowerCase()==="medium"){
-            borderColor="border-t-4 border-t-[#00A96E]"
+            // borderColor="border-t-4 border-t-[#00A96E]"
             backGround="bg-[#FFF8DB]  border-[#FDE68A]"
             textColor="text-[#F59E0B]"
 
         }
         else if(issue.priority.toLowerCase()==="low"){
-            status="./assets/Closed-Status.png" 
-            borderColor="border-t-4 border-t-[#A855F7]"
+            // status="./assets/Closed-Status.png" 
+            // borderColor="border-t-4 border-t-[#A855F7]"
             backGround="bg-[#EEEFF2] border-[#BBF7D0]"
             textColor="text-[#9CA3AF]"
         }
