@@ -238,7 +238,7 @@ const displayIssues=(issues)=>{
             <div class="mt-4">
                 <h3 class="text-[#64748B] text-[12px]">#1 by ${issue.author}</h3>
                 <p class="text-[#64748B] text-[12px]">Created At:${issue.createdAt}</p>
-                <p class="text-[#64748B] text-[12px]">Updated At:${issue.updatedAt}</p>
+                
             </div>
             
 
