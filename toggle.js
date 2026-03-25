@@ -1,14 +1,10 @@
-// const createLabels=(arr)=>{
-//    const grpLabels=arr.map(el => `<span class="">${el}</span>`)
-//    return(grpLabels.join(" "))
-
 const createLabels = (labels) => {
     return labels.map(label => {
         let colorClass = "bg-gray-100 text-[#64748B]";
         // let widthClass="w-[100px]"
         let iconPath = "";
 
-        // Logic for Colors and Icons
+       
         if (label.toLowerCase().includes('bug')) {
             colorClass = "bg-[#FEECEC] border-1 border-[#EF4444]  text-[#EF4444]";
             iconPath = "./assets/BugDroid.png";
@@ -21,10 +17,9 @@ const createLabels = (labels) => {
             iconPath = "./assets/Sparkle.png";
         } else if (label.toLowerCase().includes('documentation')) {
             colorClass = "bg-blue-100 text-blue-600 border-1 border-blue-600";
-            iconPath = "./assets/Aperture.png"; // Or whichever icon you prefer for docs
+            iconPath = "./assets/Aperture.png"; 
         }
 
-        // Return the HTML with the image included
         return `
             <span class="${colorClass} p-2 rounded-full text-[9px] font-bold uppercase flex items-center text-center gap-1">
                 ${iconPath ? `<img src="${iconPath}" class="w-3 h-3" alt="">` : ""}
@@ -44,13 +39,7 @@ const manageSpinner=(status)=>{
     }
 }
     
-// const removeBtn=()=>{
-//     const statusBtn=document.querySelectorAll(".status-btn")
-//     statusBtn.forEach((btn)=>btn.classList.remove("active"))
-// }
 
-// const openBtn=document.getElementById('open-btn')
-// const closedBtn=document.getElementById('closed-btn')
 let issuesCount=document.getElementById('issues-count')
 
 let allIssues=[]
@@ -73,6 +62,20 @@ const loadAll=()=>{
    searchBtn.classList.remove('bg-neutral-400')
 
 })
+}
+
+const displayBtn=()=>{
+    
+const btnContainer=document.getElementById('btn-container')
+btnContainer.innerHTML=""
+const btn=document.createElement("div")
+
+btn.innerHTML=`
+<button onclick="filterIssues('all',event)" id="all-btn" class="btn bg-blue-600 ">All</button>
+ <button onclick="filterIssues('open',event)" id="open-btn" class="btn bg-neutral-300 ">Open</button>
+<button onclick="filterIssues('closed',event)" id="closed-btn" class=" btn bg-neutral-300">Closed</button>`
+btnContainer.appendChild(btn)
+//    manageSpinner(true) 
 }
 
 const loadModal=(id)=>{
@@ -132,19 +135,7 @@ const displayModal=(issue)=>{
     
 }
 
-const displayBtn=()=>{
-    
-const btnContainer=document.getElementById('btn-container')
-btnContainer.innerHTML=""
-const btn=document.createElement("div")
 
-btn.innerHTML=`
-<button onclick="filterIssues('all',event)" id="all-btn" class="btn bg-blue-600 ">All</button>
- <button onclick="filterIssues('open',event)" id="open-btn" class="btn bg-neutral-300 ">Open</button>
-<button onclick="filterIssues('closed',event)" id="closed-btn" class=" btn bg-neutral-300">Closed</button>`
-btnContainer.appendChild(btn)
-//    manageSpinner(true) 
-}
 const filterIssues=(status,event)=>{
 manageSpinner(true)
 
@@ -158,12 +149,6 @@ setTimeout(()=>{
     event.target.classList.remove("bg-neutral-300")
     if(status==="all"){
         displayIssues(allIssues)
-    //    status.classlist.remove("bg-neutral-400")
-        // openBtn.classList.remove("bg-neutral-400")
-        // closedBtn.classList.remove("bg-neutral-400")
-        // allBtn.classList.add('active')
-    //  openBtn.classList.add('active')
-    // status.classList.add('active')
     }
     else{
         const filteredIssue=allIssues.filter(issue=>issue.status.toLowerCase()===status.toLowerCase())
